@@ -62,4 +62,4 @@ RichTextComposer(
 ),
 ```
 
-![Example](/screenshots/screenshot.png)
+![Example](https://github.com/rockerhieu/flutter_richtext_composer/blob/master/screenshots/screenshot.png?raw=true)

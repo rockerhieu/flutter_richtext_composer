@@ -1,6 +1,6 @@
 name: flutter_richtext_composer
 description: A Flutter package for composing rich text in a i18n friendly way
-version: 0.2.0
+version: 0.2.1
 homepage: https://github.com/rockerhieu/flutter_richtext_composer
 
 environment:

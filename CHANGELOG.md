@@ -5,3 +5,7 @@
 ## [0.2.0]
 
 * Update license
+
+## [0.2.1]
+
+* Update demo image
