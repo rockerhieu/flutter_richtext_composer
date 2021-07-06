@@ -17,7 +17,7 @@ import 'package:flutter/widgets.dart';
 ///
 /// ```dart
 /// RichTextComposer(
-///   'Hi \\\\{dad}, I am {batman}!',
+///   'Hi \\{dad}, I am {batman}!',
 ///   style: TextStyle(fontSize: 25),
 ///   placeholders: {
 ///     'batman': TextSpan(
@@ -31,27 +31,32 @@ import 'package:flutter/widgets.dart';
 /// ),
 /// ```
 class RichTextComposer extends StatelessWidget {
-  /// Create a new [RichTextComposer] from the given [formula].
+  /// Create a new [RichTextComposer] from a given formula.
   ///
-  /// [formula] can have placeholders in this format {place_holder_name}.
+  /// The formula can have placeholders in this format {place_holder_name}.
   /// [style] - default text style for all text spans.
+  /// [textAlign] - default text alignment for all text spans.
   RichTextComposer(
-    this.formula, {
+    this._formula, {
     Key? key,
     Map<String, InlineSpan> placeholders = const <String, InlineSpan>{},
     this.style,
     this.textAlign,
   })  : _placeholders = placeholders,
         super(key: key) {
-    final tokenizer = Tokenizer(formula);
+    final tokenizer = Tokenizer(_formula);
     while (tokenizer.hasNext()) {
       _tokens.add(tokenizer.next()!);
     }
   }
 
-  final String formula;
+  final String _formula;
   final Map<String, InlineSpan> _placeholders;
+
+  /// The default text style that will be applied for all text spans.
   final TextStyle? style;
+
+  /// The default text alignment that will be applied for all text spans.
   final TextAlign? textAlign;
   final List<Token> _tokens = [];
 
@@ -82,23 +87,32 @@ class RichTextComposer extends StatelessWidget {
   }
 }
 
+/// Helper class for parsing a formula into tokens.
 @visibleForTesting
 class Tokenizer {
   var cursor = -1;
+
+  /// The formular, may contain placeholders in the format of {placeholder_name}.
   final String formula;
+
+  /// Length of the [formula].
   final int formulaLength;
 
+  /// Creates a [Tokenizer] with the given [formula].
   Tokenizer(this.formula) : formulaLength = formula.length;
 
+  /// Whether there are more tokens to retrieve.
   bool hasNext() {
     return cursor < formulaLength - 1;
   }
 
+  /// Resets the cursor to the begining of the [formula].
   @visibleForTesting
   void reset() {
     cursor = -1;
   }
 
+  /// Retrives the next [Token].
   Token? next() {
     final preStart = cursor;
     if (preStart >= formulaLength - 1) {
@@ -168,12 +182,25 @@ class Tokenizer {
   }
 }
 
+/// Defines the token type.
 @visibleForTesting
-enum TokenType { text, placeholder }
+enum TokenType {
+  /// A text token
+  text,
 
+  /// A placeholder token
+  placeholder,
+}
+
+/// Holds information about the token.
 @visibleForTesting
 class Token {
+  /// The token type
   final TokenType type;
+
+  /// Value of the token. If the token is a [TokenType.text], holds the text
+  /// value. If the token is a [TokenType.placeholder], holds the name of the
+  /// placeholder.
   final String value;
 
   Token._({
@@ -181,10 +208,12 @@ class Token {
     required this.value,
   });
 
+  /// Create a [TokenType.text] token with the given [text].
   factory Token.text(String text) {
     return Token._(type: TokenType.text, value: text);
   }
 
+  /// Create a [TokenType.placeholder] token with the given [name].
   factory Token.placeholder(String name) {
     return Token._(type: TokenType.placeholder, value: name);
   }

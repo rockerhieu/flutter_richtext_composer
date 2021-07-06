@@ -9,3 +9,8 @@
 ## [0.2.1]
 
 * Update demo image
+
+## [0.2.2]
+
+* Fix incorrect example
+* Add docs

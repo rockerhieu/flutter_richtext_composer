@@ -48,7 +48,7 @@ RichTextComposer(
 To escape the placeholder, prefix with `\`, e.g `\{placeholder}`:
 ```dart
 RichTextComposer(
-  'Hi \\\\{dad}, I am {batman}!',
+  'Hi \\{dad}, I am {batman}!',
   style: TextStyle(fontSize: 25),
   placeholders: {
     'batman': TextSpan(
