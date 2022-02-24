@@ -14,3 +14,7 @@
 
 * Fix incorrect example
 * Add docs
+
+## [0.2.3]
+
+* Fix incorrect error message

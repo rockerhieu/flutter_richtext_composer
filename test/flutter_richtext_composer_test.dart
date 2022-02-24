@@ -74,6 +74,10 @@ void main() {
       expectTokens(Tokenizer('{valid_name_1}'), [
         Token.placeholder('valid_name_1'),
       ]);
+
+      expectTokens(Tokenizer('{_valid_name_1}'), [
+        Token.placeholder('_valid_name_1'),
+      ]);
     });
   });
 }

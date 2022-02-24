@@ -126,10 +126,10 @@ class Tokenizer {
       while (cursor < formulaLength && (ch = formula[cursor]) != '}') {
         var code = ch.codeUnits.first;
         if (firstCh && code >= 48 /* 0 */ && code <= 57 /* 9 */) {
-          throw 'Placeholder name must start with a lowercase alphabet letter';
+          throw 'Placeholder name must start with "_" or a lowercase alphabet letter';
         }
         if ((code < 48 /* 0 */ || code > 57 /* 9 */) &&
-            (code < 97 /* a */ || code > 122) /* z */ &&
+            (code < 97 /* a */ || code > 122 /* z */) &&
             code != 95 /* _ */) {
           break;
         }
